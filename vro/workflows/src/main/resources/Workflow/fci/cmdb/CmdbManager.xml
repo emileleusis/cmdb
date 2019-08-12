@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="92b498ad-9e97-4543-8599-3c33aa1c7358" version="1.0.0" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[CmdbManager]]></display-name>
+  <position y="50.0" x="100.0"></position>
+  <input>
+    <param name="option" type="string">
+      <description><![CDATA[ADD / DELETE record]]></description>
+    </param>
+    <param name="cmdbName" type="string">
+      <description><![CDATA[name of cmdb system]]></description>
+    </param>
+    <param name="recordName" type="string">
+      <description><![CDATA[name of record in cmdb]]></description>
+    </param>
+    <param name="recordSize" type="string">
+      <description><![CDATA[record size]]></description>
+    </param>
+  </input>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="45.40909090909091" x="384.5"></position>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[//]]></script>
+    <in-binding>
+      <bind name="option" type="string" export-name="option"></bind>
+      <bind name="cmdbName" type="string" export-name="cmdbName"></bind>
+      <bind name="recordName" type="string" export-name="recordName"></bind>
+      <bind name="recordSize" type="string" export-name="recordSize"></bind>
+    </in-binding>
+    <out-binding></out-binding>
+    <position y="55.40909090909091" x="204.5"></position>
+  </workflow-item>
+  <presentation>
+    <p-param name="option">
+      <desc><![CDATA[ADD / DELETE record]]></desc>
+      <p-qual kind="static" name="genericEnumeration" type="Array/string"><![CDATA[#{#string#ADD#;#string#DELETE#}#]]></p-qual>
+    </p-param>
+    <p-param name="cmdbName">
+      <desc><![CDATA[name of cmdb system]]></desc>
+      <p-qual kind="static" name="genericEnumeration" type="Array/string"><![CDATA[#{#string#Kangaroo#;#string#Wombat#;#string#Platypus#}#]]></p-qual>
+    </p-param>
+    <p-param name="recordName">
+      <desc><![CDATA[name of record in cmdb]]></desc>
+    </p-param>
+    <p-param name="recordSize">
+      <desc><![CDATA[record size]]></desc>
+    </p-param>
+  </presentation>
+</workflow>

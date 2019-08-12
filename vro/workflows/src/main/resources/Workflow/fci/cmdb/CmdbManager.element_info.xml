@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Exported from [server]</comment>
+<entry key="categoryPath">FCI.CMDB</entry>
+<entry key="categoryPathEscaped">RkNJ.Q01EQg==</entry>
+<entry key="name">CmdbManager</entry>
+<entry key="type">Workflow</entry>
+<entry key="id">92b498ad-9e97-4543-8599-3c33aa1c7358</entry>
+</properties>
