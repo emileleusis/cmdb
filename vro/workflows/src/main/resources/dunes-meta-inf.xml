@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment></comment>
+<entry key="pkg-description"></entry>
+<entry key="pkg-name">${groupId}.${artifactId}-${project.version}</entry>
+<entry key="used-plugins"></entry>
+<entry key="pkg-owner"></entry>
+<entry key="pkg-id">5341318913457897890341245657782358723</entry>
+</properties>
