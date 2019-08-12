@@ -1,0 +1,253 @@
+id:
+  id: "4ee6c7eb-e871-4940-ac03-64eeaf71e6b8"
+workflowId: "92b498ad-9e97-4543-8599-3c33aa1c7358"
+name: "Add CMDB record"
+description: "CmdbManager"
+catalogRequestInfoHidden: true
+forms:
+- id: "3d3f2c71-e20d-4e4f-a415-ae34cf39aac7"
+  form:
+    name: "Request form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Step"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - label: "Add CMDB record"
+          designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "option"
+              label: "ADD / DELETE record"
+              description: "ADD / DELETE record"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "defaultValue"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "string"
+                      value: "ADD"
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "visible"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 4
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "cmdbName"
+              label: "name of cmdb system"
+              description: "name of cmdb system"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 4
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "recordName"
+              label: "name of record in cmdb"
+              description: "name of record in cmdb"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 4
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "recordSize"
+              label: "record size"
+              description: "record size"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 4
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Request.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "0.0.0"
+  major: 0
+  minor: 0
+  micro: 0
+component: true
+componentConfiguration:
+  scalable: false
+  categoryId: "designer.service"
+  operations: []
+builtIn: false

@@ -1,0 +1,8 @@
+name: "com.tsi.fci.cmdb.catalog-1.0.0-SNAPSHOT"
+productVersion: "7.6.0-SNAPSHOT"
+data:
+- locator: "xaas-blueprint/4ee6c7eb-e871-4940-ac03-64eeaf71e6b8.yaml"
+  name: "Add CMDB record"
+- locator: "xaas-blueprint/504ce5ee-d67f-4959-8855-5511782cf120.yaml"
+  name: "Delete CMDB record"
+exportTime: "2019-08-12T17:45:26.385Z"

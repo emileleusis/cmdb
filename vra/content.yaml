@@ -10,6 +10,8 @@ property-definition:
 software-component:
 composite-blueprint:
 xaas-blueprint:
+  - Add CMDB record
+  - Delete CMDB record
 xaas-resource-action:
 xaas-resource-type:
 xaas-resource-mapping:
