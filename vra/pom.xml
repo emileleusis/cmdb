@@ -6,6 +6,7 @@
         <groupId>com.vmware.pscoe.vra</groupId>
         <artifactId>vra-package</artifactId>
         <version>1.5.22</version>
+         <relativePath></relativePath>
     </parent>
     <groupId>com.tsi.fci</groupId>
     <artifactId>cmdb.catalog</artifactId>
