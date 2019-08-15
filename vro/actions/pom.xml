@@ -12,4 +12,18 @@
   <artifactId>cmdb.actions</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>package</packaging>
+  <dependencies>
+   <dependency>
+      <groupId>com.vmware.pscoe.library</groupId>
+      <artifactId>class</artifactId>
+      <type>package</type>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vmware.pscoe.library</groupId>
+      <artifactId>rest-template</artifactId>
+      <type>package</type>
+      <version>2.5.0</version>
+    </dependency>
+  </dependencies>
 </project>

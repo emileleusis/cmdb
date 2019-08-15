@@ -1,6 +1,15 @@
-describe("sample", function() {
-    var sample = System.getModule("com.tsi.fci.cmdb").sample;
-    it("should add two numbers", function() {
-        expect(sample(5, 2)).toBe(7);
-    });
+describe("jasmine.objectContaining", function() {
+    var cmdbEntry = System.getModule("com.tsi.fci.cmdb").CmdbEntry();
+    var entry = new cmdbEntry("Kangaroo","testCmdbEntry",13,1);
+    it("should create a cmdbEntry object", function() {
+        expect(entry).toEqual(jasmine.objectContaining({
+            type: "Kangaroo",
+            name: "testCmdbEntry",
+            size: 13,
+            id: 1
+         }));
+         expect(entry).not.toEqual(jasmine.objectContaining({
+            type: "test"
+         }));         
+   });
 });
