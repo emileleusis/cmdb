@@ -7,14 +7,25 @@
     return Class.define(function CmdbMapper(type){
         switch(type) {
             case "Kangaroo":
-                this.add = {url:"api/record",
-                            restOperation:"PUT",
-                            body:'{"name" : "%name%", "size" : "%size%"}',
-                            ok:"200"};
-                this.remove = {url:"api/record/%id%",
-                            restOperation:"DELETE",
-                            body:'',
-                            ok:"200"};
+                this.add = '[' + 
+                ' {	' + 
+                '	"urlTemplate":"api/record",' + 
+                '	"params":"",' + 
+                '	"method":"PUT",' + 
+                '	"content":"{\\"name\\":\\"%name%\\",\\"size\\":\\"%size%\\"}",' + 
+                ' "success":"200",' + 
+                '	"failure":"400"' + 
+                ' }' + 
+                ']';
+                this.remove = '[' + 
+                ' {	' + 
+                '	"urlTemplate":"api/record/{id}",' + 
+                '	"params":["%id%"],' + 
+                '	"method":"DELETE",' + 
+                ' "success":"200",' + 
+                '	"failure":"400"' + 
+                ' }' + 
+                ']';
               // code block
             break;
             case "Wombat":
