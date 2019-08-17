@@ -1,6 +1,6 @@
-projectKey=cmdb
-serverUrl=http://localhost:9000
+projectKey=uzeitler
+serverUrl=http://auto-support.fci.lenovo:9000
 serverVersion=7.9.1.27448
-dashboardUrl=http://localhost:9000/dashboard?id=cmdb
-ceTaskId=AWyHKaJJyd8dSs8jiwsU
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWyHKaJJyd8dSs8jiwsU
+dashboardUrl=http://auto-support.fci.lenovo:9000/dashboard?id=uzeitler
+ceTaskId=AWyeram1D8ELtLuv4_Nx
+ceTaskUrl=http://auto-support.fci.lenovo:9000/api/ce/task?id=AWyeram1D8ELtLuv4_Nx

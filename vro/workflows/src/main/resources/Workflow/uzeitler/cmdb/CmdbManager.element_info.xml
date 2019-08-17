@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Exported from [server]</comment>
-<entry key="categoryPath">FCI.CMDB</entry>
+<entry key="categoryPath">UZEITLER.CMDB</entry>
 <entry key="categoryPathEscaped">RkNJ.Q01EQg==</entry>
 <entry key="name">CmdbManager</entry>
 <entry key="type">Workflow</entry>

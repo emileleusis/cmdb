@@ -1,5 +1,5 @@
 describe("jasmine.objectContaining", function() {
-    var cmdbEntry = System.getModule("com.tsi.fci.cmdb").CmdbEntry();
+    var cmdbEntry = System.getModule("com.tsi.uzeitler.cmdb").CmdbEntry();
     var entry = new cmdbEntry("Kangaroo","testCmdbEntry",13,1);
     it("should create a cmdbEntry object", function() {
         expect(entry).toEqual(jasmine.objectContaining({

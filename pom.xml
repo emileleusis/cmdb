@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.vmware.pscoe.o11n</groupId>
         <artifactId>base-package</artifactId>
-        <version>1.5.22</version>
+        <version>1.5.24</version>
     </parent>
 
     <modules>
@@ -15,7 +15,7 @@
         <module>vra</module>
     </modules>
 
-    <groupId>com.tsi.fci</groupId>
+    <groupId>com.tsi.uzeitler</groupId>
     <artifactId>cmdb</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>

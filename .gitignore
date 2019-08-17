@@ -24,6 +24,8 @@ dist/
 
 # Sonar
 .sonarlint/
+.scannerwork/
+.sonartmp/
 
 # vRO local hint info and logs
 .o11n/
