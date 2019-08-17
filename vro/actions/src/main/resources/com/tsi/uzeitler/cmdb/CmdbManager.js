@@ -3,8 +3,8 @@
  */
 (function () {
     var Class = System.getModule("com.vmware.pscoe.library.class").Class();
-    var CmdbEntry = Class.load("com.tsi.fci.cmdb","CmdbEntry");
-    var CmdbMapper = Class.load("com.tsi.fci.cmdb","CmdbMapper");
+    var CmdbEntry = Class.load("com.tsi.uzeitler.cmdb","CmdbEntry");
+    var CmdbMapper = Class.load("com.tsi.uzeitler.cmdb","CmdbMapper");
     return Class.define(function CmdbManager(type,name,size,id){
         CmdbEntry.call(this,type,name,size,id);
         var RestCall = new CmdbMapper(this.type);

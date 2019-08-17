@@ -3,7 +3,7 @@
  */
 (function () {
     var Class = System.getModule("com.vmware.pscoe.library.class").Class();
-    //var CmdbEntry = Class.load("com.tsi.fci.cmdb","CmdbEntry");
+    //var CmdbEntry = Class.load("com.tsi.uzeitler.cmdb","CmdbEntry");
     return Class.define(function CmdbMapper(type){
         switch(type) {
             case "Kangaroo":
