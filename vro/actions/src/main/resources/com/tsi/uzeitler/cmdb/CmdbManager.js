@@ -9,63 +9,81 @@
     return Class.define(function CmdbManager(type,name,size,id){
         CmdbEntry.call(this,type,name,size,id);
         var RestCallDef = new CmdbMapper(this.type);
-        var restHost = RESTHostManager.getHost(this.type);
+
         this.add = function(){
             //call rest function
-            var RestCmdbClient = new RestClient(restHost);
-            var params = function(){
-                var urlTemplate = RestCallDef.add.urlTemplate;
-                var tempParams = [];
-                for each(var a in urlTemplate.match(/{.+}/g)){
-                    b = eval(a.replace("{","").replace("}",""));
-                    tempParams.push(b);
+            var counter = 0;
+            var responseContent = "";
+            for each (var addCommand in RestCallDef.add){
+                System.log(counter++);
+                var params = paramsReplace(addCommand.urlTemplate);
+                System.log(params);
+                if(responseContent == "")var content = contentReplace(addCommand.content);            
+                System.log(content);
+                try{
+                    System.log("RestHostNameType:" + this.type);
+                    for each(var a in RESTHostManager.getHosts()){
+                        if(RESTHostManager.getHost(a).name = this.type ){
+                            var restHost = RESTHostManager.getHost(a);
+                            break;
+                        }
+                    }
+                    System.log("RestHostName:" + restHost.name + "-" + restHost.id);
+                    var RestCmdbClient = new RestClient(restHost);
+                    if(addCommand.method == "PUT"){
+                        var restOperation = RestCmdbClient.put(addCommand.urlTemplate,params,content,null);
+                    }
+                    if(restOperation.statusCode >= addCommand.success[0] && restOperation.statusCode <= addCommand.success[1]){
+                        System.log("RestOperation success !");
+                    }else if(restOperation.statusCode >= addCommand.failure[0] && restOperation.statusCode <= addCommand.failure[1]){
+                        throw("Request failure. Status code :" + restOperation.statusCode);
+                    }else{
+                        throw("Undefined status code. Please check if successful: " + restOperation.statusCode);
+                    }
+                    var responseContent = restOperation.contentAsString;
+                }catch(e){
+                    System.error("Problems to execute Rest Request: " + e);
                 }
-                return params;
-            }();
-            System.log(params);
-            var content = function(){
-                var con = RestCallDef.add.content;
-                var pattern = /%name%/g;
-                con = con.replace(pattern,name);
-                var pattern = /%size%/g;
-                con = con.replace(pattern,size);
-                var pattern = /%id%/g;
-                con = con.replace(pattern,id);
-                return con;
-            }();
-            System.log(content);
-            try{
-                var restOperation = RestCmdbClient.runRestOp(RestCallDef.add.method,RestCallDef.add.urlTemplate,params,content,null);
-            }catch(e){
-                //
+                System.log("ADD:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id + "-" + addCommand.urlTemplate);
             }
-            return("ADD:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id + "-" + RestCallDef.add.urlTemplate);
-
-        }
-        this.remove = function(CmdbEntry){
+            
+        };
+        this.remove = function(){
             //remove rest function
-            var params = function(){
-                var urlTemplate = RestCallDef.remove.urlTemplate;
-                var tempParams = [];
-                for each(var a in urlTemplate.match(/{.+}/g)){
-                    b = eval(a.replace("{","").replace("}",""));
-                    tempParams.push(b);
+            for each (var removeCommand in RestCallDef.remove){
+                var params = paramsReplace(removeCommand.urlTemplate);
+                System.log(params);
+                
+                var content = contentReplace(removeCommand.content);            
+                System.log(content);
+                try{
+                    var restHost = RESTHostManager.getHost(this.type);
+                    var RestCmdbClient = new RestClient(restHost);
+                    
+                    var restOperation = eval(RestCmdbClient.runRestOp(removeCommand.method,removeCommand.urlTemplate,params,content,null));
+                }catch(e){
+                    System.error("Problems to execute Rest Request: " + e);
                 }
-                return tempParams;
-            }();
-            System.log(params);
-            var content = function(){
-                var con = RestCallDef.remove.content;
-                var pattern = /%name%/g;
-                con = con.replace(pattern,name);
-                var pattern = /%size%/g;
-                con = con.replace(pattern,size);
-                var pattern = /%id%/g;
-                con = con.replace(pattern,id);
-                return con;
-            }();
-            System.log(content);
-            return("REMOVE:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id  + "-" + RestCallDef.remove.urlTemplate);
-        }
+                System.log("REMOVE:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id  + "-" + removeCommand.urlTemplate);
+            }
+                
+        };
+        function paramsReplace(urlTemplate){
+            var tempParams = [];
+            for each(var a in urlTemplate.match(/{.+}/g)){
+                b = eval(a.replace("{","").replace("}",""));
+                tempParams.push(b);
+            }
+            return tempParams;
+        };
+        function contentReplace(con){
+            var pattern = /%name%/g;
+            con = con.replace(pattern,name);
+            var pattern = /%size%/g;
+            con = con.replace(pattern,size);
+            var pattern = /%id%/g;
+            con = con.replace(pattern,id);
+            return con;
+        };        
     },null, CmdbEntry);
 })
