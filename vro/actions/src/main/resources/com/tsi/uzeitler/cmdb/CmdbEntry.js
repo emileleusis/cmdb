@@ -8,14 +8,5 @@
         this.name = name;
         this.size = size;
         this.id = id;
-        /*this.add = function(){
-            //call rest function
-            return("ADD:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id );
-        }
-        this.remove = function(){
-            //remove rest function
-            return("REMOVE:" + this.type + "-" + this.name + "-" + this.size + "-" + this.id );
-        }*/
-        //testcomment
     })
 })
