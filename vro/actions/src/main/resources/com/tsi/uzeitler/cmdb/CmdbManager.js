@@ -12,7 +12,7 @@
 
         this.add = function(){
             //call rest function
-            var counter = 0;
+            //var counter = 0;
             var responseContent = "";
             for each (var addCommand in RestCallDef.add){
                 executeRest(addCommand);
@@ -52,7 +52,7 @@
         this.remove = function(){
             //remove rest function
             for each (var removeCommand in RestCallDef.remove){
-                executeRest(addCommand);
+                executeRest(removeCommand);
                 /*var params = paramsReplace(removeCommand.urlTemplate);
                 System.log(params);
                 
@@ -88,27 +88,37 @@
             return con;
         };
         function executeRest(commandDef){
-            System.log(counter++);
+            //System.log(counter++);
             var params = paramsReplace(commandDef.urlTemplate);
             System.log(params);
-            if(responseContent == "")var content = contentReplace(commandDef.content);            
+            if(responseContent == undefined)var content = contentReplace(commandDef.content);            
             System.log(content);
             try{
-                System.log("RestHostNameType:" + this.type);
+                System.log("RestHostNameType:" + type);
                 for each(var a in RESTHostManager.getHosts()){
-                    if(RESTHostManager.getHost(a).name = this.type ){
+                    if(RESTHostManager.getHost(a).name = type ){
                         var restHost = RESTHostManager.getHost(a);
                         break;
                     }
                 }
                 System.log("RestHostName:" + restHost.name + "-" + restHost.id);
                 var RestCmdbClient = new RestClient(restHost);
-                if(addCommand.method == "PUT"){
-                    var restOperation = RestCmdbClient.put(commandDef.urlTemplate,params,content,null);
+                switch(commandDef.method) {
+                    case "PUT":
+                        var restOperation = RestCmdbClient.put(commandDef.urlTemplate,params,content,null);
+                        break;
+                    case "POST":
+                        var restOperation = RestCmdbClient.push(commandDef.urlTemplate,params,content,null);
+                        break;
+                    case "DELETE":
+                        var restOperation = RestCmdbClient.delete(commandDef.urlTemplate,params,content,null);
+                        break;                                                        
+                    default:
+                        //
                 }
                 if(restOperation.statusCode >= commandDef.success[0] && restOperation.statusCode <= commandDef.success[1]){
                     System.log("RestOperation success !");
-                }else if(restOperation.statusCode >= addCommand.failure[0] && restOperation.statusCode <= commandDef.failure[1]){
+                }else if(restOperation.statusCode >= commandDef.failure[0] && restOperation.statusCode <= commandDef.failure[1]){
                     throw("Request failure. Status code :" + restOperation.statusCode);
                 }else{
                     throw("Undefined status code. Please check if successful: " + restOperation.statusCode);
@@ -117,7 +127,7 @@
             }catch(e){
                 System.error("Problems to execute Rest Request: " + e);
             }
-            System.log(":" + this.type + "-" + this.name + "-" + this.size + "-" + this.id + "-" + commandDef.urlTemplate);
+            System.log(":" + type + "-" + name + "-" + size + "-" + id + "-" + commandDef.urlTemplate);
         }     
     },null, CmdbEntry);
 })
