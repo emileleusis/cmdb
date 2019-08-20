@@ -56,7 +56,7 @@
                 urlTemplate:"api/transaction/commit",
                 //params:"",
                 method:"POST",
-                content:'{"transactionId" : "%transactionId%"}',
+                content:'{"transactionId" : %transactionId%}',
                 success:["200","200"],
                 failure: ["400","400"]
               }];

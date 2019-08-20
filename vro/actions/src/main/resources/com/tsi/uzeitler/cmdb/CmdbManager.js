@@ -10,13 +10,13 @@
         CmdbEntry.call(this,type,name,size,id);
         var RestCallDef = new CmdbMapper(this.type);
 
-        this.add = function(){
+        /*this.add = function () {
             //call rest function
             //var counter = 0;
             //var responseContent = "";
-            for each (var addCommand in RestCallDef.add){
-                executeRest(addCommand);
-            }
+            for each(var addCommand in RestCallDef.add){
+               executeRest(addCommand);
+             }
         };
         this.remove = function(){
             //remove rest function
@@ -24,10 +24,11 @@
                 executeRest(removeCommand);
             }
                 
-        };
+        };*/
         function paramsReplace(urlTemplate){
             var tempParams = [];
-            for each(var a in urlTemplate.match(/{.+}/g)){
+            urlTemplate.match(/{.+}/g).forEach(repl);
+            function repl(a){
                 b = eval(a.replace("{","").replace("}",""));
                 tempParams.push(b);
             }
@@ -45,6 +46,7 @@
         function executeRest(commandDef){
             //System.log(counter++);
             var params = paramsReplace(commandDef.urlTemplate);
+            
             System.log(params);
             if(responseContent == undefined)var content = contentReplace(commandDef.content);            
             System.log(content);
@@ -73,16 +75,25 @@
                 }
                 if(restOperation.statusCode >= commandDef.success[0] && restOperation.statusCode <= commandDef.success[1]){
                     System.log("RestOperation success !");
+                    var responseContent = restOperation.contentAsString;
                 }else if(restOperation.statusCode >= commandDef.failure[0] && restOperation.statusCode <= commandDef.failure[1]){
                     throw("Request failure. Status code :" + restOperation.statusCode);
                 }else{
                     throw("Undefined status code. Please check if successful: " + restOperation.statusCode);
                 }
-                var responseContent = restOperation.contentAsString;
+                
             }catch(e){
                 System.error("Problems to execute Rest Request: " + e);
+            }finally{
+                System.log(":" + type + "-" + name + "-" + size + "-" + id + "-" + commandDef.urlTemplate);
             }
-            System.log(":" + type + "-" + name + "-" + size + "-" + id + "-" + commandDef.urlTemplate);
-        }     
-    },null, CmdbEntry);
+        }
+    },{
+        add: function () {
+            RestCallDef.add.forEach(executeRest);
+        },
+        delete: function () {
+            RestCallDef.remove.forEach(executeRest);
+        }
+    }, CmdbEntry);
 })
