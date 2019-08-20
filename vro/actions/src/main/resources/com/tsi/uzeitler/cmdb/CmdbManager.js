@@ -2,37 +2,31 @@
  * Write a brief description of the purpose of the action.
  */
 (function () {
+
     var Class = System.getModule("com.vmware.pscoe.library.class").Class();
     var CmdbEntry = Class.load("com.tsi.uzeitler.cmdb","CmdbEntry");
     var CmdbMapper = Class.load("com.tsi.uzeitler.cmdb","CmdbMapper");
     var RestClient = Class.load("com.vmware.pscoe.library.rest","RestClient");
+
     return Class.define(function CmdbManager(type,name,size,id){
         CmdbEntry.call(this,type,name,size,id);
-        var RestCallDef = new CmdbMapper(this.type);
+        this.RestCallDef = new CmdbMapper(this.type);
+        var responseContent = "";
 
-        /*this.add = function () {
-            //call rest function
-            //var counter = 0;
-            //var responseContent = "";
-            for each(var addCommand in RestCallDef.add){
-               executeRest(addCommand);
-             }
-        };
-        this.remove = function(){
-            //remove rest function
-            for each (var removeCommand in RestCallDef.remove){
-                executeRest(removeCommand);
-            }
-                
-        };*/
         function paramsReplace(urlTemplate){
             var tempParams = [];
-            urlTemplate.match(/{.+}/g).forEach(repl);
-            function repl(a){
-                b = eval(a.replace("{","").replace("}",""));
-                tempParams.push(b);
+            try{
+                if(urlTemplate.match(/{.+}/g) != null ){
+                    urlTemplate.match(/{.+}/g).forEach(function (a){
+                        b = eval(a.replace("{","").replace("}",""));
+                        tempParams.push(b);
+                    });
+                }
+            }catch(e){
+                System.log(e);
+            }finally{
+                return tempParams;
             }
-            return tempParams;
         };
         function contentReplace(con){
             var pattern = /%name%/g;
@@ -47,17 +41,23 @@
             //System.log(counter++);
             var params = paramsReplace(commandDef.urlTemplate);
             
-            System.log(params);
-            if(responseContent == undefined)var content = contentReplace(commandDef.content);            
-            System.log(content);
+            System.log("urlTemplate-Values for Params: " + params);
+            System.log("this.responseContent: " + responseContent);
+            if(responseContent == ""){
+                var content = contentReplace(commandDef.content);
+            }else{
+                var content = responseContent;
+            }          
+            System.log("RestBody after Replace: " + content);
             try{
                 System.log("RestHostNameType:" + type);
                 for each(var a in RESTHostManager.getHosts()){
-                    if(RESTHostManager.getHost(a).name = type ){
+                    if(RESTHostManager.getHost(a).name == type ){
                         var restHost = RESTHostManager.getHost(a);
                         break;
                     }
                 }
+                if(restHost == undefined || restHost == null )throw ("No Rest Host found. Cancelling.");
                 System.log("RestHostName:" + restHost.name + "-" + restHost.id);
                 var RestCmdbClient = new RestClient(restHost);
                 switch(commandDef.method) {
@@ -65,17 +65,18 @@
                         var restOperation = RestCmdbClient.put(commandDef.urlTemplate,params,content,null);
                         break;
                     case "POST":
-                        var restOperation = RestCmdbClient.push(commandDef.urlTemplate,params,content,null);
+                        var restOperation = RestCmdbClient.post(commandDef.urlTemplate,params,content,null);
                         break;
                     case "DELETE":
-                        var restOperation = RestCmdbClient.delete(commandDef.urlTemplate,params,content,null);
+                        var restOperation = RestCmdbClient.delete(commandDef.urlTemplate,params,null);
                         break;                                                        
                     default:
                         //
                 }
+                
                 if(restOperation.statusCode >= commandDef.success[0] && restOperation.statusCode <= commandDef.success[1]){
                     System.log("RestOperation success !");
-                    var responseContent = restOperation.contentAsString;
+                    responseContent = restOperation.contentAsString;
                 }else if(restOperation.statusCode >= commandDef.failure[0] && restOperation.statusCode <= commandDef.failure[1]){
                     throw("Request failure. Status code :" + restOperation.statusCode);
                 }else{
@@ -85,15 +86,20 @@
             }catch(e){
                 System.error("Problems to execute Rest Request: " + e);
             }finally{
-                System.log(":" + type + "-" + name + "-" + size + "-" + id + "-" + commandDef.urlTemplate);
+                //responseContent = "24623453425234";
+                //System.log(":" + type + "-" + name + "-" + size + "-" + id + "-" + commandDef.urlTemplate);
             }
         }
+
+        this.executeRestI = function(commandDef){executeRest(commandDef)};
     },{
-        add: function () {
-            RestCallDef.add.forEach(executeRest);
+        add: function (){
+            System.log("RestCallDef.add.length: " + this.RestCallDef.add.length);
+            this.RestCallDef.add.forEach(this.executeRestI);
         },
-        delete: function () {
-            RestCallDef.remove.forEach(executeRest);
-        }
+        remove: function (){
+            System.log("RestCallDef.remove.length: " + this.RestCallDef.remove.length);
+            this.RestCallDef.remove.forEach(this.executeRestI);
+        }						
     }, CmdbEntry);
 })

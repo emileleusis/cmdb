@@ -11,16 +11,16 @@
                   //params:"",
                   method:"PUT",
                   content:'{"name" : "%name%", "size" : "%size%"}',
-                  success:["200","200"],
-                  failure: ["400","400"]
+                  success:[200,200],
+                  failure: [400,400]
                 }];
                 this.remove = [{
                   urlTemplate:"api/record/{id}",
                   //params:["%id%"],
                   method:"DELETE",
                   content:"",
-                  success:["200","200"],
-                  failure: ["400","400"]
+                  success:[200,200],
+                  failure: [400,400]
                 }];
             // code block
             break;
@@ -30,16 +30,16 @@
                 //params:"",
                 method:"POST",
                 content:'<CreateRecord><Name>%name%</Name><Size>%size%</Size></CreateRecord>',
-                success:["200","299"],
-                failure: ["400","499"]
+                success:[200,299],
+                failure: [400,499]
               }];
               this.remove = [{
                 urlTemplate:"api/record/{id}",
                 //params:["%id%"],
                 method:"POST",
                 content:'<DeleteRecord><Id>%id%</Id></DeleteRecord>',
-                success:["200","299"],
-                failure: ["400","499"]
+                success:[200,299],
+                failure: [400,499]
               }];
               break;
             case "Platypus":
@@ -49,33 +49,33 @@
                 method:"POST",
                 content:'{"name" : "%name%", "size" : "%size%"}',
                 response:'{"transactionId"}',
-                success:["200","200"],
-                failure: ["400","400"]
+                success:[200,200],
+                failure: [400,400]
               },
               {
                 urlTemplate:"api/transaction/commit",
                 //params:"",
                 method:"POST",
                 content:'{"transactionId" : %transactionId%}',
-                success:["200","200"],
-                failure: ["400","400"]
+                success:[200,200],
+                failure: [400,400]
               }];
               this.remove = [{
                 urlTemplate:"api/transaction/delete",
                 //params:["%id%"],
                 method:"POST",
-                content:'{"id":"%id%"}',
+                content:'{"id":%id%}',
                 response:'{"transactionId"}',
-                success:["200","200"],
-                failure: ["400","400"]
+                success:[200,200],
+                failure: [400,400]
               },{
                 urlTemplate:"api/transaction/commit",
                 //params:["%id%"],
                 method:"POST",
-                content:'{"transactionId" : "%transactionId%"}',
+                content:'{"transactionId" : %transactionId%}',
                 response:'',
-                success:["200","200"],
-                failure: ["400","400"]
+                success:[200,200],
+                failure: [400,400]
               }];
               break;
             default:
