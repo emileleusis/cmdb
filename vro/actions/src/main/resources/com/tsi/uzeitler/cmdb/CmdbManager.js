@@ -51,13 +51,16 @@
             System.log("RestBody after Replace: " + content);
             try{
                 System.log("RestHostNameType:" + type);
-                for each(var a in RESTHostManager.getHosts()){
+                for (var i in RESTHostManager.getHosts()){
+                    var a = RESTHostManager.getHosts()[i];
                     if(RESTHostManager.getHost(a).name == type ){
                         var restHost = RESTHostManager.getHost(a);
                         break;
                     }
                 }
-                if(restHost == undefined || restHost == null )throw ("No Rest Host found. Cancelling.");
+                if(restHost == undefined || restHost == null ){
+                    throw ("No Rest Host found. Cancelling.")
+                }
                 System.log("RestHostName:" + restHost.name + "-" + restHost.id);
                 var RestCmdbClient = new RestClient(restHost);
                 switch(commandDef.method) {
